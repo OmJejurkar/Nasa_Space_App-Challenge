@@ -70,6 +70,26 @@ cosmicvista/
    npm install
    ```
 
+### NASA API Key Setup
+
+To use the NASA API features (APOD, Mars Rover photos, etc.), you need to obtain a free NASA API key:
+
+1. Visit [https://api.nasa.gov/](https://api.nasa.gov/)
+2. Fill out the "Get API Key" form
+3. You'll receive your API key via email
+
+Once you have your API key:
+
+1. Create a `.env` file in the `backend` directory
+2. Add your API key to the file:
+   ```
+   NASA_API_KEY=your_actual_api_key_here
+   PORT=3001
+   ```
+3. Restart the backend server
+
+Without a valid API key, the application will use the DEMO_KEY which has very limited rate limits and often causes errors.
+
 ### Development
 
 1. Start the backend server:

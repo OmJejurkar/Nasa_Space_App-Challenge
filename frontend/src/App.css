@@ -84,6 +84,18 @@
   animation: twinkle var(--duration, 3s) infinite ease-in-out;
 }
 
+.star-layer-0 {
+  z-index: 2;
+}
+
+.star-layer-1 {
+  z-index: 3;
+}
+
+.star-layer-2 {
+  z-index: 4;
+}
+
 @keyframes twinkle {
   0%, 100% {
     opacity: 0.2;
@@ -101,6 +113,7 @@
               inset -10px 0 300px #0ff, 0 0 50px #fff, 
               -10px 0 80px #f0f, 10px 0 80px #0ff;
   animation: float var(--duration, 20s) infinite linear;
+  z-index: 3;
 }
 
 @keyframes float {
@@ -121,13 +134,29 @@
   }
 }
 
+/* Astronaut Animation */
 .astronaut-container {
   position: fixed;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: -100px;
+  transform: translateY(-50%);
   z-index: 5;
   pointer-events: none;
+  animation: astronautEnter 3s ease-out forwards;
+}
+
+@keyframes astronautEnter {
+  0% {
+    left: -100px;
+  }
+  70% {
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  100% {
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
 }
 
 .astronaut {
@@ -201,8 +230,7 @@
   left: -15px;
 }
 
-.astronaut-jetpack::after {
-  content: '';
+.jetpack-fire {
   position: absolute;
   width: 15px;
   height: 15px;
@@ -232,6 +260,7 @@
   border-radius: 5px;
   animation: orbit var(--duration, 30s) infinite linear;
   box-shadow: 0 0 10px rgba(200, 200, 255, 0.7);
+  z-index: 4;
 }
 
 .satellite::before, .satellite::after {
@@ -275,21 +304,42 @@
   }
 }
 
+/* Space Debris */
+.debris {
+  position: absolute;
+  background: rgba(200, 200, 255, 0.7);
+  border-radius: 50%;
+  animation: drift var(--duration, 30s) infinite linear;
+  z-index: 3;
+}
+
+@keyframes drift {
+  0% {
+    transform: rotate(0deg) translateX(var(--radius, 300px)) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(var(--radius, 300px)) rotate(-360deg);
+  }
+}
+
 /* Interactive planet */
 .interactive-planet {
   position: absolute;
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  z-index: 6;
 }
 
 .interactive-planet:hover {
   transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(0, 219, 222, 0.8);
 }
 
 .planet-info {
   position: absolute;
-  background: rgba(0, 0, 30, 0.8);
+  background: rgba(0, 0, 30, 0.9);
   border: 1px solid #00dbde;
   border-radius: 10px;
   padding: 15px;
@@ -300,10 +350,25 @@
   transition: opacity 0.3s ease;
   pointer-events: none;
   backdrop-filter: blur(5px);
+  left: 110%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 7;
 }
 
 .planet-info.visible {
   opacity: 1;
+}
+
+.planet-info::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent #00dbde transparent transparent;
 }
 
 .planet-info h3 {
@@ -314,4 +379,363 @@
 .planet-info p {
   margin: 5px 0;
   font-size: 12px;
+}
+
+/* Homepage Styles */
+.homepage {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: white;
+  padding: 2rem;
+}
+
+.homepage-content {
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.intro-text {
+  margin-bottom: 4rem;
+  animation: fadeIn 2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-title {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #00dbde, #fc00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+  line-height: 1.2;
+}
+
+.title-line {
+  display: block;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #aaa;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+/* Homepage Planets */
+.homepage-planets {
+  position: relative;
+  height: 400px;
+  margin: 3rem 0;
+}
+
+/* Control Panel */
+.control-panel {
+  background: rgba(10, 10, 40, 0.8);
+  border: 1px solid rgba(0, 219, 222, 0.5);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 3rem auto;
+  max-width: 800px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(0, 219, 222, 0.3);
+  animation: panelGlow 3s infinite alternate;
+}
+
+@keyframes panelGlow {
+  from {
+    box-shadow: 0 0 20px rgba(0, 219, 222, 0.3);
+  }
+  to {
+    box-shadow: 0 0 40px rgba(0, 219, 222, 0.6), 0 0 60px rgba(252, 0, 255, 0.3);
+  }
+}
+
+.panel-header {
+  margin-bottom: 1.5rem;
+}
+
+.panel-header h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: #00dbde;
+  text-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+}
+
+.panel-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.control-btn {
+  background: rgba(30, 30, 60, 0.7);
+  border: 1px solid rgba(0, 219, 222, 0.3);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+
+.control-btn:hover {
+  background: rgba(0, 219, 222, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 219, 222, 0.4);
+}
+
+.btn-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.btn-text {
+  font-size: 0.9rem;
+}
+
+/* Launch Button */
+.homepage-footer {
+  margin-top: 3rem;
+}
+
+.launch-btn {
+  background: linear-gradient(45deg, #00dbde, #fc00ff);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  letter-spacing: 2px;
+  box-shadow: 0 0 20px rgba(0, 219, 222, 0.5);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.launch-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 219, 222, 0.8), 0 0 50px rgba(252, 0, 255, 0.5);
+}
+
+.launch-btn.countdown {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.countdown-text {
+  font-size: 2rem;
+  animation: countdownPulse 0.5s infinite alternate;
+}
+
+@keyframes countdownPulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.3);
+  }
+}
+
+.click-hint {
+  color: #aaa;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Screen Shake Effect */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+  20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Games Page */
+.games-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+.games-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.games-page p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.games-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  width: 250px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.game-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.explorer-icon {
+  background: linear-gradient(45deg, #2196F3, #21CBF3);
+  box-shadow: 0 0 20px rgba(33, 150, 243, 0.5);
+}
+
+.defender-icon {
+  background: linear-gradient(45deg, #FF5722, #FF9800);
+  box-shadow: 0 0 20px rgba(255, 87, 34, 0.5);
+}
+
+.builder-icon {
+  background: linear-gradient(45deg, #4CAF50, #8BC34A);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+}
+
+.game-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #4fc3f7;
+}
+
+.game-card p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.play-btn {
+  background: linear-gradient(45deg, #9c27b0, #673ab7);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.play-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(156, 39, 176, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .homepage-planets {
+    height: 300px;
+  }
+  
+  .control-panel {
+    padding: 1.5rem;
+  }
+  
+  .panel-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .control-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .launch-btn {
+    padding: 1.2rem 2rem;
+    font-size: 1.2rem;
+  }
+  
+  .games-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .game-card {
+    width: 100%;
+    max-width: 300px;
+  }
 }

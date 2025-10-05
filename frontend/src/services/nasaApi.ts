@@ -6,12 +6,57 @@ const NASA_API_KEY = 'DEMO_KEY';
 export const fetchApod = async () => {
   try {
     const response = await fetch(`${NASA_API_BASE}/apod?api_key=${NASA_API_KEY}`);
+    console.log(`API response status: ${response.status}`);
+    
     if (!response.ok) {
-      throw new Error('Failed to fetch APOD data');
+      let errorMessage = `Failed to fetch APOD data. Status: ${response.status}`;
+      
+      try {
+        const errorData = await response.json();
+        console.log('API error data:', errorData);
+        if (errorData.message) {
+          errorMessage = errorData.message;
+        } else if (errorData.error) {
+          errorMessage = errorData.error;
+        }
+      } catch (parseError) {
+        // If we can't parse the error response as JSON, try as text
+        try {
+          const errorText = await response.text();
+          console.log('API error text:', errorText);
+          if (errorText) {
+            errorMessage = errorText;
+          }
+        } catch (textError) {
+          // If we can't get text either, use the default message
+        }
+      }
+      
+      if (response.status === 429) {
+        throw new Error('NASA API rate limit exceeded. Your API key may have reached its limit.');
+      }
+      
+      if (response.status >= 500) {
+        throw new Error('There was a server error fetching data from NASA. Please try again later.');
+      }
+      
+      throw new Error(errorMessage);
     }
-    return await response.json();
+    
+    const data = await response.json();
+    console.log('API response data:', data);
+    
+    // Check if NASA API returned an error object
+    if (data.error) {
+      if (data.message && data.message.includes('rate limit')) {
+        throw new Error('NASA API rate limit exceeded. Your API key may have reached its limit.');
+      }
+      throw new Error(data.message || data.error || 'Failed to fetch APOD data');
+    }
+    
+    return data;
   } catch (error) {
-    console.error('Error fetching APOD:', error);
+    console.error('Error in fetchApod:', error);
     throw error;
   }
 };
@@ -21,6 +66,9 @@ export const fetchMarsPhotos = async (rover: string, date: string) => {
   try {
     const response = await fetch(`${NASA_API_BASE}/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${NASA_API_KEY}`);
     if (!response.ok) {
+      if (response.status === 429) {
+        throw new Error('NASA API rate limit exceeded. Your API key may have reached its limit.');
+      }
       throw new Error(`Failed to fetch ${rover} photos`);
     }
     return await response.json();
@@ -35,6 +83,9 @@ export const fetchRoverManifest = async (rover: string) => {
   try {
     const response = await fetch(`${NASA_API_BASE}/mars-photos/api/v1/rovers/${rover}?api_key=${NASA_API_KEY}`);
     if (!response.ok) {
+      if (response.status === 429) {
+        throw new Error('NASA API rate limit exceeded. Your API key may have reached its limit.');
+      }
       throw new Error(`Failed to fetch ${rover} manifest`);
     }
     return await response.json();

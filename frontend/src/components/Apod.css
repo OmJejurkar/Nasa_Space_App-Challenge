@@ -124,3 +124,33 @@
   border-radius: 10px;
   border: 1px solid #ff6b6b;
 }
+
+.apod-error h3 {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+}
+
+.apod-error-help {
+  font-size: 1rem;
+  color: #aaa;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.apod-error-help a {
+  color: #00dbde;
+  text-decoration: none;
+}
+
+.apod-error-help a:hover {
+  text-decoration: underline;
+}
+
+.apod-empty {
+  text-align: center;
+  color: #888;
+  font-size: 1.2rem;
+  padding: 2rem;
+}

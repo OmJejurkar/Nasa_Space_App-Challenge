@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Apod } from '../interfaces/Apod';
+import { fetchApod } from '../services/nasaApi';
 import './Apod.css';
 
 const ApodComponent: React.FC = () => {
@@ -8,26 +9,46 @@ const ApodComponent: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchApod = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/apod');
-        if (!response.ok) {
-          throw new Error('Failed to fetch APOD data');
+        console.log('Fetching APOD data...');
+        const data = await fetchApod();
+        console.log('Received APOD data:', data);
+        
+        // Check if the response contains an error from NASA API
+        if (data.error) {
+          throw new Error(data.error);
         }
-        const data: Apod = await response.json();
+        
         setApodData(data);
         setLoading(false);
-      } catch (err) {
-        setError('Failed to load Astronomy Picture of the Day');
+      } catch (err: any) {
+        console.error('Error fetching APOD:', err);
+        if (err.message) {
+          setError(`Error: ${err.message}`);
+        } else {
+          setError('Failed to load Astronomy Picture of the Day. Please try again later.');
+        }
         setLoading(false);
       }
     };
 
-    fetchApod();
+    fetchData();
   }, []);
 
   if (loading) return <div className="apod-loading">Loading today's cosmic image...</div>;
-  if (error) return <div className="apod-error">{error}</div>;
+  if (error) return (
+    <div className="apod-error">
+      <h3>Error Loading APOD</h3>
+      <p>{error}</p>
+      <p className="apod-error-help">
+        If you've added your NASA API key and are still seeing this error, please check:
+        <br />1. That your backend server is running
+        <br />2. That your API key is valid and correctly formatted in the backend .env file
+        <br />3. Your internet connection
+      </p>
+    </div>
+  );
   if (!apodData) return <div className="apod-empty">No data available</div>;
 
   return (
