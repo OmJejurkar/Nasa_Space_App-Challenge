@@ -7,20 +7,19 @@
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "backend/src/server.js",
-      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "backend/src/server.js"
+      "dest": "/api/proxy.js"
     },
     {
       "src": "/(.*)",
       "dest": "frontend/dist/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NASA_API_KEY": "@nasa_api_key"
+  }
 }

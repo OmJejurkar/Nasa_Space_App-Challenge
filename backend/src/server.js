@@ -92,8 +92,14 @@ app.get('/api/apod', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`To use your own NASA API key, create a .env file in the backend directory with NASA_API_KEY=your_key_here`);
-  console.log(`Get your free NASA API key at: https://api.nasa.gov/`);
-});
+// For Vercel compatibility, we need to export the app
+module.exports = app;
+
+// Only start the server if this file is run directly (not in Vercel)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`To use your own NASA API key, create a .env file in the backend directory with NASA_API_KEY=your_key_here`);
+    console.log(`Get your free NASA API key at: https://api.nasa.gov/`);
+  });
+}

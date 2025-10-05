@@ -1,0 +1,9 @@
+{
+  "name": "cosmicvista-vercel-check",
+  "version": "1.0.0",
+  "description": "Vercel deployment verification for CosmicVista",
+  "scripts": {
+    "vercel:build": "cd frontend && npm run build",
+    "vercel:check": "node vercel-check.js"
+  }
+}

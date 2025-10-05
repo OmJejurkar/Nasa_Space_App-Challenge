@@ -1,11 +1,10 @@
 // NASA API Service
 const NASA_API_BASE = '/api';
-const NASA_API_KEY = 'DEMO_KEY';
 
 // Fetch Astronomy Picture of the Day
 export const fetchApod = async () => {
   try {
-    const response = await fetch(`${NASA_API_BASE}/apod?api_key=${NASA_API_KEY}`);
+    const response = await fetch(`${NASA_API_BASE}/apod`);
     console.log(`API response status: ${response.status}`);
     
     if (!response.ok) {
@@ -64,7 +63,7 @@ export const fetchApod = async () => {
 // Fetch Mars Rover Photos
 export const fetchMarsPhotos = async (rover: string, date: string) => {
   try {
-    const response = await fetch(`${NASA_API_BASE}/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${NASA_API_KEY}`);
+    const response = await fetch(`${NASA_API_BASE}/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}`);
     if (!response.ok) {
       if (response.status === 429) {
         throw new Error('NASA API rate limit exceeded. Your API key may have reached its limit.');
@@ -81,7 +80,7 @@ export const fetchMarsPhotos = async (rover: string, date: string) => {
 // Fetch Mars Rover Manifest
 export const fetchRoverManifest = async (rover: string) => {
   try {
-    const response = await fetch(`${NASA_API_BASE}/mars-photos/api/v1/rovers/${rover}?api_key=${NASA_API_KEY}`);
+    const response = await fetch(`${NASA_API_BASE}/mars-photos/api/v1/rovers/${rover}`);
     if (!response.ok) {
       if (response.status === 429) {
         throw new Error('NASA API rate limit exceeded. Your API key may have reached its limit.');
