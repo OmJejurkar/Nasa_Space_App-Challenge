@@ -17,7 +17,7 @@ CosmicVista is a web application built with modern web technologies to provide a
 - **Frontend**: React, TypeScript, CSS3, HTML5 Canvas
 - **Backend**: Node.js, Express.js
 - **APIs**: NASA Open APIs
-- **Deployment**: Vercel
+- **Deployment**: Vercel, Render, Netlify, Railway
 
 ## Project Structure
 
@@ -125,9 +125,86 @@ The project includes an interactive space exploration game built with HTML5 Canv
 - Navigate through space with comets, satellites, and debris
 - Mini-map for navigation
 
-### Deployment
+## Deployment
 
-The application is configured for deployment on Vercel. Follow Vercel's documentation for deployment instructions.
+### Option 1: Deploy to Vercel (Frontend) + Render (Backend) - Recommended
+
+#### Step 1: Prepare Your Code
+
+1. Create a GitHub repository for your project
+2. Push your code to GitHub:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/your-username/your-repo-name.git
+   git push -u origin main
+   ```
+
+#### Step 2: Deploy Frontend to Vercel
+
+1. Go to [vercel.com](https://vercel.com) and sign up/sign in
+2. Click "New Project"
+3. Import your GitHub repository
+4. Configure the project:
+   - Framework Preset: Vite
+   - Root Directory: frontend
+   - Build Command: `npm run build`
+   - Output Directory: dist
+5. Click "Deploy"
+6. Note the URL provided by Vercel (e.g., https://your-app.vercel.app)
+
+#### Step 3: Deploy Backend to Render
+
+1. Go to [render.com](https://render.com) and sign up/sign in
+2. Click "New+" and select "Web Service"
+3. Connect your GitHub repository
+4. Configure the service:
+   - Name: cosmicvista-backend
+   - Region: Choose the closest to you
+   - Branch: main
+   - Root Directory: backend
+   - Environment: Node
+   - Build Command: `npm install`
+   - Start Command: `node src/server.js`
+5. Add environment variables:
+   - NASA_API_KEY: your_actual_nasa_api_key
+   - PORT: 3001
+6. Click "Create Web Service"
+
+#### Step 4: Update Frontend to Point to Your Backend
+
+1. In your frontend code, update the API calls to point to your Render backend URL
+2. The backend URL will be something like: https://your-backend-service.onrender.com
+3. Update the NASA API service file in your frontend to use this URL
+
+#### Step 5: Redeploy Frontend
+
+After updating the API URL, redeploy your frontend on Vercel.
+
+### Option 2: Deploy Everything to Vercel (Monorepo)
+
+See [DEPLOYMENT_FULL.md](DEPLOYMENT_FULL.md) for detailed instructions.
+
+### Option 3: Deploy to Netlify (Frontend) + Railway (Backend)
+
+See [DEPLOYMENT_FULL.md](DEPLOYMENT_FULL.md) for detailed instructions.
+
+### Environment Variables
+
+You'll need to set these environment variables in your deployment platform:
+
+```
+NASA_API_KEY=your_actual_nasa_api_key_here
+PORT=3001
+```
+
+### Deployment Scripts
+
+The project includes deployment scripts to help you:
+- `deploy.sh` - Unix/Linux deployment script
+- `deploy.bat` - Windows deployment script
 
 ## Features
 
