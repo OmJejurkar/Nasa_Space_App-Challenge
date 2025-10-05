@@ -1,0 +1,147 @@
+/* Global space-themed styles */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 30, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#00dbde, #fc00ff);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#00a8aa, #d400d4);
+}
+
+/* Button styles */
+.space-button {
+  background: linear-gradient(45deg, #00dbde, #fc00ff);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 219, 222, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.space-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 219, 222, 0.8);
+}
+
+.space-button:active {
+  transform: translateY(1px);
+}
+
+.space-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20px;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(30deg);
+  transition: all 0.6s;
+}
+
+.space-button:hover::after {
+  left: 120%;
+}
+
+/* Input styles */
+.space-input {
+  background: rgba(20, 20, 40, 0.7);
+  border: 1px solid rgba(0, 219, 222, 0.5);
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.space-input:focus {
+  outline: none;
+  border-color: #00dbde;
+  box-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+}
+
+/* Card styles */
+.space-card {
+  background: rgba(20, 10, 40, 0.7);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);
+  border: 1px solid rgba(252, 0, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #00dbde, #fc00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated background elements */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+.glow {
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px rgba(0, 219, 222, 0.5);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(0, 219, 222, 0.8), 0 0 30px rgba(252, 0, 255, 0.5);
+  }
+}

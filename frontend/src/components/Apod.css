@@ -1,0 +1,126 @@
+.apod-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(0, 0, 20, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(100, 100, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  position: relative;
+  z-index: 10;
+}
+
+.apod-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00dbde, #fc00ff, #00dbde);
+  z-index: -1;
+  border-radius: 17px;
+  animation: borderAnimation 3s ease infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes borderAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.apod-container h2 {
+  text-align: center;
+  color: #00dbde;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  text-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+}
+
+.apod-container h3 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.apod-date {
+  text-align: center;
+  color: #aaa;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.apod-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 20px rgba(0, 100, 255, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.apod-image:hover {
+  transform: scale(1.02);
+}
+
+.apod-video {
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 20px rgba(0, 100, 255, 0.5);
+}
+
+.apod-explanation {
+  color: #ddd;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  background: rgba(0, 10, 30, 0.5);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 3px solid #00dbde;
+}
+
+.apod-copyright {
+  text-align: right;
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+.apod-loading {
+  text-align: center;
+  color: #00dbde;
+  font-size: 1.2rem;
+  padding: 2rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.apod-error {
+  text-align: center;
+  color: #ff6b6b;
+  font-size: 1.2rem;
+  padding: 2rem;
+  background: rgba(255, 0, 0, 0.1);
+  border-radius: 10px;
+  border: 1px solid #ff6b6b;
+}

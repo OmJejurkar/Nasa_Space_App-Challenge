@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000000, #1a1a2e, #16213e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .game-card {
+            background: rgba(20, 10, 40, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(252, 0, 255, 0.3);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(252, 0, 255, 0.7);
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-card h2 {
+            color: #00dbde;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .game-card p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .play-button {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 219, 222, 0.5);
+        }
+
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 219, 222, 0.8);
+        }
+
+        .back-button {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Cosmic Games</h1>
+        <p>Explore the universe through our collection of space-themed games</p>
+    </div>
+    
+    <div class="games-grid">
+        <div class="game-card" onclick="window.location.href='SpaceExplorer/index.html'">
+            <div class="game-icon">🚀</div>
+            <h2>Space Explorer</h2>
+            <p>Control an astronaut exploring space and visiting planets. Navigate through starfields, collect fuel, and discover cosmic wonders.</p>
+            <button class="play-button">Play Now</button>
+        </div>
+        
+        <div class="game-card">
+            <div class="game-icon">🌌</div>
+            <h2>Galaxy Defender</h2>
+            <p>Defend your space station from incoming asteroids and alien ships in this action-packed shooter.</p>
+            <button class="play-button" disabled>Coming Soon</button>
+        </div>
+        
+        <div class="game-card">
+            <div class="game-icon">🪐</div>
+            <h2>Planet Builder</h2>
+            <p>Create and customize your own planets with unique ecosystems, weather patterns, and alien life forms.</p>
+            <button class="play-button" disabled>Coming Soon</button>
+        </div>
+    </div>
+    
+    <button class="back-button" onclick="window.location.href='../..'">Back to Cosmic Explorer</button>
+    
+    <script>
+        // Add click event to play buttons as well
+        document.querySelectorAll('.play-button').forEach((button, index) => {
+            if (!button.disabled) {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    window.location.href = 'SpaceExplorer/index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
